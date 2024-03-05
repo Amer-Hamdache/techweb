@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier Livre{% endblock %}
+
+{% block content %}
+<h2>Modifier Livre</h2>
+<form action="/modifier-livre/{{ livre.id }}" method="post">
+    <input type="hidden" id="id" name="id" value="{{ livre.id }}">
+    
+    <label for="nom">Nom:</label>
+    <input type="text" id="nom" name="nom" value="{{ livre.nom }}" required>
+    
+    <label for="auteur">Auteur:</label>
+    <input type="text" id="auteur" name="auteur" value="{{ livre.auteur }}" required>
+    
+    <label for="editeur">Éditeur:</label>
+    <input type="text" id="editeur" name="editeur" value="{{ livre.editeur }}" required>
+    
+    <button type="submit">Modifier</button>
+</form>
+{% endblock %}

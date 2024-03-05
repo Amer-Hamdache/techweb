@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des Livres{% endblock %}
+
+{% block content %}
+<h2>Liste des Livres</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Auteur</th>
+            <th>Éditeur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for livre in livres %}
+        <tr>
+            <td>{{ livre.id }}</td>
+            <td>{{ livre.nom }}</td>
+            <td>{{ livre.auteur }}</td>
+            <td>{{ livre.editeur }}</td>
+            <td>
+                <a href="/modifier-livre/{{ livre.id }}">Modifier</a> |
+                <a href="/supprimer-livre/{{ livre.id }}">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>Nombre total de livres : {{ total }}</p>
+{% endblock %}
