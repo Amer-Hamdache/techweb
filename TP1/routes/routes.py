@@ -82,7 +82,12 @@ def validate_string(string: str) -> bool:
  
 # Endpoint pour créer un livre
 @router.post("/livre/{id}")
-def create_livre(livre: Livre, id: int, nom: str, auteur: str, editeur: str) -> Livre:
+def create_livre(livre: Livre,
+                 id: int = Path(ge=1),#ID doit obligatoirement être supérieur ou égal à 1
+                 nom: str = "",#Nom est égal à "", doit être modifier par utilisateur sinon HTTPException suite à validate_String
+                 auteur: str = "",#Auteur est égal à "", doit être modifier par utilisateur sinon HTTPException suite à validate_String
+                 editeur: str = "",#Editeur est égal à "", doit être modifier par utilisateur sinon HTTPException suite à validate_String
+                 )-> Livre:
     """
     Endpoint pour ajouter un nouveau livre à la liste des livres.
  
