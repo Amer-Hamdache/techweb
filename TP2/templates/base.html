@@ -11,6 +11,13 @@
             <ul>
                 <li><a href="/">Liste des Livres</a></li>
                 <li><a href="/ajouter-livre">Ajouter un Livre</a></li>
+                <li>
+                    <form action="/modifier-livre" method="get">
+                        <input type="number" id="id" name="id" min="1" placeholder="ID du Livre" required>
+                        <button type="submit">Recherche Livre par ID</button>
+                    </form>
+                </li>
+
             </ul>
         </nav>
     </header>

@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from dataclass_livres import LivreModel
-from data_livre import liste_livres  # Assurez-vous que cette importation fonctionne avec votre structure de données.
+from data_livre import liste_livres  
 import uvicorn
 
 app = FastAPI()
@@ -44,6 +44,13 @@ async def get_modifier_livre_form(request: Request, id: int):
     # Passez l'instance de LivreModel au template
     return templates.TemplateResponse("modifier_livre.html", {"request": request, "livre": livre, "id": id})
 
+@app.get("/modifier-livre")
+async def modifier_livre_form(request: Request, id: int):
+    if id not in liste_livres:
+        raise HTTPException(status_code=404, detail="Livre non trouvé")
+    livre = LivreModel(**liste_livres[id])
+    return templates.TemplateResponse("modifier_livre.html", {"request": request, "livre": livre})
+
 @app.post("/modifier-livre/{id}")
 async def modifier_livre(id: int, nom: str = Form(...), auteur: str = Form(...), editeur: str = Form(...)):
     if id not in liste_livres:
@@ -58,6 +65,7 @@ async def supprimer_livre(id: int):
         return {"message": "Livre supprimé avec succès"}
     else:
         raise HTTPException(status_code=404, detail="Livre non trouvé")
+
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: StarletteHTTPException):
