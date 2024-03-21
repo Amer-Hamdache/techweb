@@ -26,7 +26,7 @@ Définition de styles pour les différentes parties de l'application
 ## Agrémentation de l'application via HTML
 En date du 21/03, aucune fonctionnalité n'a été modifié. Seuls des templates ont été implémantes permettant d'agrémenter notre application.
 Ainsi l'ajout de templates permet d'afficher :  
-- Nouvelle page de base/d'accueil où il sera possible pour l'utilisateur d'effectuer des requêtes (ajout, modification, ...)
+- Nouvelle page principale/d'accueil où il sera possible pour l'utilisateur d'effectuer des requêtes (ajout, modification, ...)
 - Nouvelle page permettant d'ajouter un livre 
 - Nouvelle page d'erreur lorsqu'une erreur est rencontrée
 - Nouvelle page affichant la listre des livres
