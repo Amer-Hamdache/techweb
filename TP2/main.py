@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request, Form, HTTPException
-from fastapi.responses import HTMLResponse
-from fastapi.exceptions import RequestValidationError
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse #HTMLResponse : Une classe de réponse qui permet de renvoyer du contenu HTML au client.
+from fastapi.exceptions import RequestValidationError #RequestValidationError : Importe l'exception utilisée par FastAPI pour gérer les erreurs de validation des données de requête.
+from fastapi.staticfiles import StaticFiles #StaticFiles : Permet de servir des fichiers statiques (comme des feuilles de style CSS, des images et des fichiers JavaScript) dans une application FastAPI.
 from fastapi.templating import Jinja2Templates
-from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.exceptions import HTTPException as StarletteHTTPException #StarletteHTTPException : Importe l'exception HTTPException de Starlette (le framework asynchrone sur lequel FastAPI est construit) pour une gestion d'erreur plus fine.
 from dataclass_livres import LivreModel
 from data_livre import liste_livres  
 import uvicorn
@@ -60,12 +60,19 @@ async def modifier_livre(id: int, nom: str = Form(...), auteur: str = Form(...),
 
 @app.get("/supprimer-livre/{id}")
 async def supprimer_livre(id: int):
+    global liste_livres
     if id in liste_livres:
         del liste_livres[id]
-        return {"message": "Livre supprimé avec succès"}
+
+        new_liste_livres = {}
+        for new_id, livre in enumerate(liste_livres.values(), start=1):
+            livre['id'] = new_id
+            new_liste_livres[new_id] = livre
+
+        liste_livres = new_liste_livres
+        return {"message": "Livre supprimé avec succès et ID réattribués"}
     else:
         raise HTTPException(status_code=404, detail="Livre non trouvé")
-
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: StarletteHTTPException):
